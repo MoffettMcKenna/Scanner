@@ -1,0 +1,51 @@
+{'attrs': [
+	('NL80211_ATTR_GENERATION', 343003),
+	('NL80211_ATTR_IFINDEX', 3),
+	('NL80211_ATTR_WDEV', 1),
+	('NL80211_ATTR_BSS', {'attrs': [
+		('NL80211_BSS_BSSID', '04:d9:f5:9a:92:f1'), 
+		('NL80211_BSS_TSF', {'VALUE': 0, 'TIME': datetime.timedelta(0)}), 
+		('NL80211_BSS_INFORMATION_ELEMENTS', {
+			'SSID': b'CloudCity', 
+			'SUPPORTED_RATES': '1.0* 2.0* 5.5* 11.0* 18.0 24.0 36.0 54.0 ', 
+			'CHANNEL': 10, 
+			'TRAFFIC INDICATION MAP': 'DTIM Count 2 DTIM Period 3 Bitmap Control 0x0 Bitmap[0] 0x0', 
+			'EXTENDED_RATES': '6.0 9.0 12.0 48.0 ', 
+			'RSN': b'\x01\x00\x0f\xac\x04\x01\x00\x00\x0f\xac\x02\x0c\x00', 
+			'VENDOR': [
+				b'\x00P\x02\x10<\x00\x01\x03\x10I\x00\x06\x007*\x00\x01 ', 
+				b"\x00P\x80\x00\x03\xa4\x00\x00'\xa4\x00\x00BC^\x00b2/\x00"
+			 ]
+		}), 
+		('NL80211_BSS_BEACON_INTERVAL', 100), 
+		('NL80211_BSS_CAPABILITY', {
+			'VALUE': 5137, 
+			'CAPABILITIES': 'ESS Privacy ShortSlotTime RadioMeasure'
+		}), 
+		('NL80211_BSS_FREQUENCY', 2457), 
+		('NL80211_BSS_CHAN_WIDTH', 0), 
+		('NL80211_BSS_SEEN_MS_AGO', 0), 
+		('NL80211_BSS_MAX', '41:72:11:7b:98:fd:03:00'), 
+		('NL80211_BSS_SIGNAL_MBM', {
+			'VALUE': -4100, 
+			'SIGNAL_STRENGTH': {
+				'VALUE': -41.0, 
+				'UNITS': 'dBm'
+			}
+		}), 
+		('NL80211_BSS_STATUS', 1)
+	]}
+)],
+ 'cmd': 34,
+ 'event': 'NL80211_CMD_NEW_SCAN_RESULTS',
+ 'header': {'error': None,
+            'flags': 2,
+            'length': 472,
+            'pid': 28144,
+            'sequence_number': 256,
+            'stats': Stats(qsize=0, delta=0, delay=0),
+            'target': 'localhost',
+            'type': 23},
+ 'reserved': 0,
+ 'version': 1
+}
