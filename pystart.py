@@ -2,7 +2,7 @@ import pprint
 from pyroute2 import IPRoute
 from pyroute2.iwutil import IW
 from enum import Flag, auto
-from AccessPoints import AccessPoint
+from AccessPoints import NetworkFactory, Radio
 
 #######################
 #                     #
@@ -59,8 +59,8 @@ else:
 
 aps = run_scan()
 
-points = [AccessPoint(ap) for ap in aps]
+points = [Radio(ap) for ap in aps]
 
-for pt in points:
-    if pt.ssid == 'CloudCity':
-        print(pt)
+nets = NetworkFactory.GetNetworks(points)
+
+[print(n) for n in nets.values()]

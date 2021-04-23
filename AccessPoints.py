@@ -13,45 +13,14 @@ class WifiRevs(Flag):
     ac = auto()
 
 
-class RouterFactory:
-    
-    @classmethod
-    def GetRouters(cls, aps):
-        rtrs = {} # declare our return value as an empty dict
-        
-        # process all the access points
-        for ap in aps:
-            A = AccessPoint(ap)
-
-            # if the router hasn't been seen yet add it
-            if A.ssid not in rtrs.keys():
-                rtrs[A.ssid] = Router()
-
-            # add the AccessPoint to the router
-            rtrs[A.ssid].Add(A)
-
-        # end for ap
-
-        return rtrs
-    #end GetRouters()
-
-class Router:
-    
-    def __init__():
-        pass
-
-    def Add(self, ap):
-        pass
-
-
-class AccessPoint:
+class Radio:
     """
     The Access Point is the single channel station - an actual wifi router will 
     put out multiple frequency/SSID/channel sets.  The full set will be 
-    encapsulted in the Router class.
+    encapsulted in the Router class.  So really this is jut a single radio.
     """
 
-    def __init__(self, ap):
+    def __init__(self, radioTxt):
         self.mac = ''
         self.ssid = ''
         self.rates = []
@@ -63,7 +32,7 @@ class AccessPoint:
         self.width = 0
 
         # process this is in one big loop
-        for a in ap['attrs']:
+        for a in radioTxt['attrs']:
 
             # the BSS Attributes hae the meat of the access point data
             if a[0] == "NL80211_ATTR_BSS":
@@ -131,4 +100,55 @@ class AccessPoint:
 
     def __str__(self):
         return f'{self.ssid} ({self.mac})\n\tSIG:{self.signal}\tChannel:{self.channel}\tFREQ:{self.frequency}\tWIDTH:{self.width}\n{self.rates}\n{self.stars}\n{self.exrates}\n'
+
+
+class NetworkFactory:
+    
+    @classmethod
+    def GetNetworks(cls, radios):
+        nets = {} # declare our return value as an empty dict
+        
+        # process all the access points
+        for r in radios:
+
+            # if the network hasn't been seen yet create a new one
+            if r.ssid not in nets.keys():
+                nets[r.ssid] = Network(r)
+            # if the network exists add a new acces point
+            else:
+                nets[r.ssid].Add(r)
+
+            # add the AccessPoint to the network
+            nets[r.ssid].Add(r)
+
+        # end for ap
+
+        return nets
+    #end GetNetworks()
+
+
+class Network:
+    """
+    This represents a single router, access point, station, or network.  Any 
+    radio with a shared SSID is part of a single network.
+    """
+    
+    def __init__(self, rd):
+        """
+        Create a new Router with 
+        """
+        self.Name = rd.ssid if len(rd.ssid) > 0 else '<Unknown>'
+        self._macs = {rd.mac: rd}
+
+    def Add(self, rd):
+        self._macs[rd.mac] = rd
+
+    def __str__(self):
+        ret = self.Name + "\n"
+        for n in self._macs.values():
+            ret = ret + f'\t{n.mac}\n'
+        return ret
+
+
+
 
